@@ -1,5 +1,16 @@
 <div>
     <div class="container mx-auto py-4">
+        @if (session()->has('message'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
         <div class="flex justify-between items-center">
             <h1 class="text-2xl font-bold">Skills</h1>
         </div>
