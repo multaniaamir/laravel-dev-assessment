@@ -1,5 +1,5 @@
 <div class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-4">Create New Job Vacancy</h1>
+    <h1 class="text-2xl font-bold mb-4">{{ $jobId ? 'Edit Job Vacancy' : 'Create New Job Vacancy' }}</h1>
 
     <div class="bg-white p-6 rounded-lg shadow-md">
         <form wire:submit.prevent="save">
@@ -19,6 +19,9 @@
                 <div class="mb-4">
                     <label for="company_logo" class="block text-sm font-medium text-gray-700">Company Logo</label>
                     <input type="file" wire:model="company_logo" id="company_logo" class="mt-1 block w-full" />
+                    @if ($existingLogo && !$company_logo)
+                        <img src="{{ asset('storage/' . $existingLogo) }}" alt="Current Logo" class="mt-2 h-10 w-10 object-contain">
+                    @endif
                     @error('company_logo') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
@@ -69,10 +72,15 @@
                 </div>
             </div>
 
-            <div class="flex justify-end">
+            <div class="flex justify-end space-x-2">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Create Job
+                    {{ $jobId ? 'Update Job' : 'Create Job' }}
                 </button>
+                @if ($jobId)
+                    <a href="{{ route('admin.jobs.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                        Cancel
+                    </a>
+                @endif
             </div>
         </form>
     </div>
