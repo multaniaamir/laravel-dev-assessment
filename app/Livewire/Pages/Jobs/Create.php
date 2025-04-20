@@ -58,7 +58,7 @@ Class Create extends Component
         $job->skills()->sync($this->skill_ids);
 
         session()->flash('message', 'Job vacancy created successfully.');
-        return view('livewire.pages.jobs.index',['jobVacancies' => JobVacancy::all()]);
+        return redirect()->route('admin.jobs.index');
     }
 
     public function render()

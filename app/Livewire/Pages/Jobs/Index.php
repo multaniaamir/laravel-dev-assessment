@@ -9,15 +9,15 @@ class Index extends Component
 {
     public array $jobs = [];
 
-    public function mount()
-    {
-        
-    }
 
     public function delete($id)
     {
-        JobVacancy::find($id)->delete();
-        session()->flash('message', 'Job deleted successfully.');
+        $job = JobVacancy::findOrFail($id);
+        if ($job->company_logo && file_exists(public_path('storage/' . $job->company_logo))) {
+            unlink(public_path('storage/' . $job->company_logo));
+        }
+        $job->delete();
+        session()->flash('message', 'Job vacancy deleted successfully.');
     }
 
     public function render()
