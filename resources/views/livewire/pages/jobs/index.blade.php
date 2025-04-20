@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($jobVacancies as $job)
+                @forelse ($jobVacancies as $job)
                     <tr>
                         <td class="py-2 px-4 border-b">{{ $job->title }}</td>
                         <td class="py-2 px-4 border-b">{{ Str::limit($job->description, 50, '...') }}</td>
@@ -51,10 +51,15 @@
                         </td>
                         <td class="py-2 px-4 border-b">{{ $job->job_type }}</td>
                         <td class="py-2 px-4 border-b">
+                            <a href="{{ route('admin.jobs.edit', $job->id) }}" class="text-blue-500 hover:underline mr-2">Edit</a>
                             <button wire:click="delete({{ $job->id }})" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</button>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="10" class="py-4 px-4 text-center text-gray-500">No job vacancies found.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
